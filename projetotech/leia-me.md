@@ -77,17 +77,3 @@ Este projeto é uma plataforma web dedicada a divulgar eventos **locais e gratui
 - 🍽️ Gastronomia
 - Outras
 
-## ⚙️ Instalação Local
-
-```bash
-# Clone o repositório
-git clone https://github.com/coimbrac137/engenha_de_prompt_aplicacoes_AI.git
-
-# Navegue até o diretório do projeto
-cd projetotech
-
-# Instale as dependências
-pip install -r requirements.txt
-
-# Execute o servidor
-python app.py
