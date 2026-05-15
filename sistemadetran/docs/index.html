@@ -1,1034 +1,507 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🎉 Eventos em Brasília - Sua Plataforma de Eventos Gratuitos</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #ffffff;
-            color: #000000;
-            line-height: 1.6;
-        }
-
-        /* NAVBAR */
-        nav {
-            position: sticky;
-            top: 0;
-            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
-            padding: 1rem 2rem;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-            z-index: 1000;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        nav .logo {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: #22c55e;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        nav .nav-buttons {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        nav button {
-            background-color: #22c55e;
-            color: white;
-            border: none;
-            padding: 0.7rem 1.5rem;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 1rem;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        nav button:hover {
-            background-color: #16a34a;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(34, 197, 94, 0.4);
-        }
-
-        /* HERO SECTION */
-        .hero {
-            background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
-            padding: 4rem 2rem;
-            text-align: center;
-            border-bottom: 3px solid #22c55e;
-        }
-
-        .hero h1 {
-            font-size: 3rem;
-            color: #000000;
-            margin-bottom: 0.5rem;
-            animation: slideDown 0.8s ease;
-        }
-
-        .hero p {
-            font-size: 1.3rem;
-            color: #333333;
-            margin-bottom: 2rem;
-            animation: slideUp 0.8s ease;
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .btn-primary, .btn-secondary {
-            padding: 1rem 2rem;
-            border: none;
-            border-radius: 8px;
-            font-size: 1.1rem;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .btn-primary {
-            background-color: #22c55e;
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background-color: #16a34a;
-            transform: scale(1.05);
-            box-shadow: 0 8px 16px rgba(34, 197, 94, 0.3);
-        }
-
-        .btn-secondary {
-            background-color: transparent;
-            color: #000000;
-            border: 2px solid #22c55e;
-        }
-
-        .btn-secondary:hover {
-            background-color: #22c55e;
-            color: white;
-        }
-
-        /* FILTROS */
-        .filters {
-            background-color: #f9fafb;
-            padding: 2rem;
-            border-radius: 12px;
-            margin: 3rem 2rem;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .filter-group {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        .filter-group label {
-            font-weight: 600;
-            color: #000000;
-            font-size: 0.95rem;
-        }
-
-        .filter-group input,
-        .filter-group select {
-            padding: 0.8rem;
-            border: 2px solid #e5e7eb;
-            border-radius: 8px;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-        }
-
-        .filter-group input:focus,
-        .filter-group select:focus {
-            outline: none;
-            border-color: #22c55e;
-            box-shadow: 0 0 8px rgba(34, 197, 94, 0.2);
-        }
-
-        /* CATEGORIAS */
-        .categories {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-            padding: 2rem;
-            justify-content: center;
-        }
-
-        .category-btn {
-            padding: 0.8rem 1.5rem;
-            border: 2px solid #e5e7eb;
-            background-color: white;
-            color: #000000;
-            border-radius: 25px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .category-btn:hover,
-        .category-btn.active {
-            background-color: #22c55e;
-            color: white;
-            border-color: #22c55e;
-            transform: translateY(-2px);
-        }
-
-        /* GRID DE EVENTOS */
-        .events-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 2rem;
-            padding: 2rem;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .event-card {
-            background: white;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-            border: 2px solid #f3f4f6;
-        }
-
-        .event-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 12px 24px rgba(34, 197, 94, 0.2);
-            border-color: #22c55e;
-        }
-
-        .event-image {
-            width: 100%;
-            height: 200px;
-            background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-            color: white;
-        }
-
-        .event-content {
-            padding: 1.5rem;
-        }
-
-        .event-category {
-            display: inline-block;
-            background-color: #22c55e;
-            color: white;
-            padding: 0.4rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-
-        .event-title {
-            font-size: 1.3rem;
-            color: #000000;
-            margin-bottom: 0.5rem;
-            font-weight: 700;
-        }
-
-        .event-date {
-            color: #666666;
-            font-size: 0.95rem;
-            margin-bottom: 0.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .event-location {
-            color: #666666;
-            font-size: 0.95rem;
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .event-description {
-            color: #555555;
-            font-size: 0.95rem;
-            margin-bottom: 1rem;
-            line-height: 1.5;
-        }
-
-        .event-buttons {
-            display: flex;
-            gap: 0.8rem;
-            flex-wrap: wrap;
-        }
-
-        .btn-details, .btn-share {
-            flex: 1;
-            padding: 0.7rem 1rem;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            font-size: 0.9rem;
-        }
-
-        .btn-details {
-            background-color: #22c55e;
-            color: white;
-        }
-
-        .btn-details:hover {
-            background-color: #16a34a;
-        }
-
-        .btn-share {
-            background-color: #f3f4f6;
-            color: #000000;
-            border: 1px solid #e5e7eb;
-        }
-
-        .btn-share:hover {
-            background-color: #22c55e;
-            color: white;
-        }
-
-        /* MODAL */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 2000;
-            align-items: center;
-            justify-content: center;
-            animation: fadeIn 0.3s ease;
-        }
-
-        .modal.active {
-            display: flex;
-        }
-
-        .modal-content {
-            background: white;
-            padding: 2rem;
-            border-radius: 12px;
-            max-width: 600px;
-            width: 90%;
-            max-height: 90vh;
-            overflow-y: auto;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            animation: slideUp 0.3s ease;
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-            border-bottom: 2px solid #f3f4f6;
-            padding-bottom: 1rem;
-        }
-
-        .modal-header h2 {
-            color: #000000;
-            font-size: 1.8rem;
-        }
-
-        .close-btn {
-            background: none;
-            border: none;
-            font-size: 2rem;
-            cursor: pointer;
-            color: #999999;
-            transition: color 0.3s ease;
-        }
-
-        .close-btn:hover {
-            color: #000000;
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .form-group label {
-            font-weight: 600;
-            color: #000000;
-            margin-bottom: 0.5rem;
-        }
-
-        .form-group input,
-        .form-group textarea,
-        .form-group select {
-            padding: 0.8rem;
-            border: 2px solid #e5e7eb;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-family: inherit;
-            transition: all 0.3s ease;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus,
-        .form-group select:focus {
-            outline: none;
-            border-color: #22c55e;
-            box-shadow: 0 0 8px rgba(34, 197, 94, 0.2);
-        }
-
-        .form-group textarea {
-            resize: vertical;
-            min-height: 100px;
-        }
-
-        .form-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: flex-end;
-            flex-wrap: wrap;
-        }
-
-        .btn-cancel, .btn-submit {
-            padding: 0.8rem 1.5rem;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            font-size: 1rem;
-        }
-
-        .btn-cancel {
-            background-color: #f3f4f6;
-            color: #000000;
-        }
-
-        .btn-cancel:hover {
-            background-color: #e5e7eb;
-        }
-
-        .btn-submit {
-            background-color: #22c55e;
-            color: white;
-        }
-
-        .btn-submit:hover {
-            background-color: #16a34a;
-        }
-
-        /* DETALHES DO EVENTO */
-        .event-details {
-            color: #000000;
-        }
-
-        .event-details h3 {
-            color: #22c55e;
-            margin-top: 1.5rem;
-            margin-bottom: 0.5rem;
-            font-size: 1.1rem;
-        }
-
-        .event-details p {
-            color: #333333;
-            margin-bottom: 0.8rem;
-            line-height: 1.6;
-        }
-
-        /* NOTIFICAÇÃO */
-        .notification {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            background-color: #22c55e;
-            color: white;
-            padding: 1.5rem;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-            animation: slideInRight 0.5s ease;
-            z-index: 3000;
-        }
-
-        /* SOBRE */
-        .about {
-            background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
-            padding: 3rem 2rem;
-            text-align: center;
-            margin-top: 3rem;
-            border-top: 3px solid #22c55e;
-        }
-
-        .about h2 {
-            font-size: 2rem;
-            color: #000000;
-            margin-bottom: 1rem;
-        }
-
-        .about-features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-            max-width: 1000px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .feature {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .feature-icon {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .feature h3 {
-            color: #000000;
-            margin-bottom: 0.5rem;
-        }
-
-        .feature p {
-            color: #666666;
-            font-size: 0.95rem;
-        }
-
-        /* FOOTER */
-        footer {
-            background-color: #1a1a1a;
-            color: white;
-            text-align: center;
-            padding: 2rem;
-            border-top: 3px solid #22c55e;
-        }
-
-        footer p {
-            margin-bottom: 0.5rem;
-        }
-
-        footer a {
-            color: #22c55e;
-            text-decoration: none;
-            font-weight: 600;
-        }
-
-        footer a:hover {
-            text-decoration: underline;
-        }
-
-        /* ANIMAÇÕES */
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-
-        @keyframes slideInRight {
-            from {
-                opacity: 0;
-                transform: translateX(100px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        /* RESPONSIVO */
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2rem;
-            }
-
-            .hero p {
-                font-size: 1rem;
-            }
-
-            nav {
-                flex-direction: column;
-                gap: 1rem;
-            }
-
-            .filters {
-                grid-template-columns: 1fr;
-                margin: 1rem;
-            }
-
-            .events-container {
-                grid-template-columns: 1fr;
-                padding: 1rem;
-            }
-
-            .about-features {
-                grid-template-columns: 1fr;
-            }
-
-            .notification {
-                bottom: 1rem;
-                right: 1rem;
-                left: 1rem;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Autoescola DETRAN - Simulado</title>
+
+<style>
+:root {
+  --azul: #003366;
+  --azul2: #0055a5;
+  --amarelo: #ffcc00;
+  --cinza: #f4f4f4;
+  --verde: #16a34a;
+  --vermelho: #dc2626;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background: linear-gradient(135deg, var(--cinza) 0%, #e0e7ff 100%);
+  min-height: 100vh;
+  padding: 20px;
+}
+
+header {
+  background: linear-gradient(90deg, var(--azul) 0%, var(--azul2) 100%);
+  color: white;
+  text-align: center;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
+}
+
+header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+header p {
+  font-size: 1.1rem;
+  opacity: 0.9;
+}
+
+main {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-top: 4px solid var(--azul);
+}
+
+.stat-card h3 {
+  color: var(--azul);
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.stat-card .value {
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--azul2);
+}
+
+.stat-card.progress {
+  border-top-color: var(--amarelo);
+}
+
+.stat-card.progress h3 {
+  color: var(--amarelo);
+}
+
+.stat-card.progress .value {
+  color: var(--amarelo);
+}
+
+.quiz-container {
+  background: white;
+  border-radius: 10px;
+  padding: 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.question-card {
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 2px solid var(--cinza);
+}
+
+.question-card:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.question-number {
+  display: inline-block;
+  background: var(--azul);
+  color: white;
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  margin-bottom: 1rem;
+  font-weight: bold;
+}
+
+.question-text {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--azul);
+  margin-bottom: 1.5rem;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+button.option {
+  padding: 1rem;
+  border: 2px solid var(--azul2);
+  background: white;
+  color: var(--azul);
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  text-align: left;
+}
+
+button.option:hover:not(:disabled) {
+  background: var(--azul2);
+  color: white;
+  transform: translateX(5px);
+}
+
+button.option:disabled {
+  cursor: not-allowed;
+}
+
+button.option.correct {
+  background: var(--verde) !important;
+  border-color: var(--verde) !important;
+  color: white !important;
+}
+
+button.option.wrong {
+  background: var(--vermelho) !important;
+  border-color: var(--vermelho) !important;
+  color: white !important;
+}
+
+.results-section {
+  margin-top: 3rem;
+  padding: 2rem;
+  background: linear-gradient(135deg, #f0f4ff 0%, #f0fff4 100%);
+  border-radius: 10px;
+  text-align: center;
+}
+
+.results-section h2 {
+  color: var(--azul);
+  margin-bottom: 1rem;
+  font-size: 1.8rem;
+}
+
+.final-score {
+  font-size: 3rem;
+  font-weight: bold;
+  color: var(--azul2);
+  margin: 1rem 0;
+}
+
+.score-message {
+  font-size: 1.2rem;
+  color: var(--azul);
+  margin: 1.5rem 0;
+}
+
+.reset-button {
+  padding: 1rem 2rem;
+  background: linear-gradient(90deg, var(--azul) 0%, var(--azul2) 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 1rem;
+}
+
+.reset-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 51, 102, 0.3);
+}
+
+.hidden {
+  display: none !important;
+}
+
+footer {
+  text-align: center;
+  background: var(--azul);
+  color: white;
+  padding: 1.5rem;
+  margin-top: 3rem;
+  border-radius: 10px;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background: var(--cinza);
+  border-radius: 10px;
+  margin-bottom: 2rem;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--azul) 0%, var(--azul2) 100%);
+  width: 0%;
+  transition: width 0.3s ease;
+}
+
+@media(max-width: 600px) {
+  header h1 {
+    font-size: 1.8rem;
+  }
+
+  .stats {
+    grid-template-columns: 1fr;
+  }
+
+  .quiz-container {
+    padding: 1rem;
+  }
+
+  button.option {
+    font-size: 0.95rem;
+    padding: 0.8rem;
+  }
+}
+</style>
 </head>
+
 <body>
 
-    <!-- NAVBAR -->
-    <nav>
-        <a href="#" class="logo">🎉 Eventos Brasília</a>
-        <div class="nav-buttons">
-            <button onclick="scrollToSection('events')">Eventos</button>
-            <button onclick="openModal('addEventModal')">+ Adicionar Evento</button>
-        </div>
-    </nav>
+<header>
+  <h1>🚗 Autoescola DETRAN</h1>
+  <p>Simulado Interativo de Trânsito</p>
+</header>
 
-    <!-- HERO SECTION -->
-    <section class="hero">
-        <h1>🎭 Bem-vindo aos Eventos de Brasília!</h1>
-        <p>Sua plataforma de divulgação de eventos gratuitos da capital federal</p>
-        <div class="hero-buttons">
-            <button class="btn-primary" onclick="scrollToSection('events')">Explorar Eventos</button>
-            <button class="btn-secondary" onclick="scrollToSection('about')">Saiba Mais</button>
-        </div>
-    </section>
+<main>
 
-    <!-- FILTROS -->
-    <div class="filters">
-        <div class="filter-group">
-            <label for="searchInput">🔍 Buscar Evento</label>
-            <input type="text" id="searchInput" placeholder="Digite o nome do evento...">
-        </div>
-        <div class="filter-group">
-            <label for="categoryFilter">🎯 Categoria</label>
-            <select id="categoryFilter">
-                <option value="">Todas as Categorias</option>
-                <option value="Artes e Cultura">🎭 Artes e Cultura</option>
-                <option value="Educação">📚 Educação e Workshop</option>
-                <option value="Tecnologia">🎮 Tecnologia</option>
-                <option value="Esporte">🏃 Esporte e Lazer</option>
-                <option value="Música">🎵 Música e Diversão</option>
-                <option value="Networking">🤝 Comunidade e Networking</option>
-                <option value="Gastronomia">🍽️ Gastronomia</option>
-            </select>
-        </div>
-        <div class="filter-group">
-            <label for="dateFilter">📅 Data</label>
-            <input type="date" id="dateFilter">
-        </div>
-    </div>
+<div class="stats">
+  <div class="stat-card">
+    <h3>Pontuação</h3>
+    <div class="value" id="score">0</div>
+  </div>
+  <div class="stat-card progress">
+    <h3>Progresso</h3>
+    <div class="value" id="progress">0%</div>
+  </div>
+  <div class="stat-card">
+    <h3>Total de Questões</h3>
+    <div class="value" id="total">10</div>
+  </div>
+</div>
 
-    <!-- CATEGORIAS RÁPIDAS -->
-    <div class="categories">
-        <button class="category-btn active" onclick="filterByCategory('')">Todas</button>
-        <button class="category-btn" onclick="filterByCategory('Artes e Cultura')">🎭 Artes</button>
-        <button class="category-btn" onclick="filterByCategory('Educação')">📚 Educação</button>
-        <button class="category-btn" onclick="filterByCategory('Tecnologia')">🎮 Tech</button>
-        <button class="category-btn" onclick="filterByCategory('Esporte')">🏃 Esporte</button>
-        <button class="category-btn" onclick="filterByCategory('Música')">🎵 Música</button>
-        <button class="category-btn" onclick="filterByCategory('Networking')">🤝 Networking</button>
-        <button class="category-btn" onclick="filterByCategory('Gastronomia')">🍽️ Gastronomia</button>
-    </div>
+<div class="progress-bar">
+  <div class="progress-fill" id="progressBar"></div>
+</div>
 
-    <!-- GRID DE EVENTOS -->
-    <section id="events" class="events-container"></section>
+<div class="quiz-container">
+  <div id="quiz"></div>
+  
+  <div id="results" class="results-section hidden">
+    <h2>🎉 Simulado Concluído!</h2>
+    <div class="final-score" id="finalScore">0/10</div>
+    <div class="score-message" id="scoreMessage"></div>
+    <button class="reset-button" onclick="resetQuiz()">Refazer Simulado</button>
+  </div>
+</div>
 
-    <!-- MODAL ADICIONAR EVENTO -->
-    <div id="addEventModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>➕ Adicionar Novo Evento</h2>
-                <button class="close-btn" onclick="closeModal('addEventModal')">✕</button>
-            </div>
-            <form id="eventForm">
-                <div class="form-group">
-                    <label for="eventTitle">Título do Evento *</label>
-                    <input type="text" id="eventTitle" required placeholder="Ex: Workshop de JavaScript">
-                </div>
-                <div class="form-group">
-                    <label for="eventCategory">Categoria *</label>
-                    <select id="eventCategory" required>
-                        <option value="">Selecione uma categoria</option>
-                        <option value="Artes e Cultura">🎭 Artes e Cultura</option>
-                        <option value="Educação">📚 Educação e Workshop</option>
-                        <option value="Tecnologia">🎮 Tecnologia</option>
-                        <option value="Esporte">🏃 Esporte e Lazer</option>
-                        <option value="Música">🎵 Música e Diversão</option>
-                        <option value="Networking">🤝 Comunidade e Networking</option>
-                        <option value="Gastronomia">🍽️ Gastronomia</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="eventDate">Data do Evento *</label>
-                    <input type="date" id="eventDate" required>
-                </div>
-                <div class="form-group">
-                    <label for="eventTime">Horário *</label>
-                    <input type="time" id="eventTime" required>
-                </div>
-                <div class="form-group">
-                    <label for="eventLocation">Local (Endereço em Brasília) *</label>
-                    <input type="text" id="eventLocation" required placeholder="Ex: Praia da Estação, Lago Sul">
-                </div>
-                <div class="form-group">
-                    <label for="eventDescription">Descrição *</label>
-                    <textarea id="eventDescription" required placeholder="Descreva o evento..."></textarea>
-                </div>
-                <div class="form-buttons">
-                    <button type="button" class="btn-cancel" onclick="closeModal('addEventModal')">Cancelar</button>
-                    <button type="submit" class="btn-submit">Publicar Evento</button>
-                </div>
-            </form>
-        </div>
-    </div>
+</main>
 
-    <!-- MODAL DETALHES DO EVENTO -->
-    <div id="eventDetailModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 id="detailTitle">Detalhes do Evento</h2>
-                <button class="close-btn" onclick="closeModal('eventDetailModal')">✕</button>
-            </div>
-            <div id="eventDetailContent" class="event-details"></div>
-            <div class="form-buttons">
-                <button class="btn-cancel" onclick="closeModal('eventDetailModal')">Fechar</button>
-                <button class="btn-submit" onclick="shareEvent()">Compartilhar 📢</button>
-            </div>
-        </div>
-    </div>
+<footer>
+  <p>©️ 2026 Autoescola DETRAN - Desenvolvido por Pedro Henrique da Rocha Bezerra 🚀</p>
+</footer>
 
-    <!-- SOBRE -->
-    <section id="about" class="about">
-        <h2>ℹ️ Sobre Eventos em Brasília</h2>
-        <p style="font-size: 1.1rem; color: #333333; margin-bottom: 2rem;">
-            Uma plataforma dedicada a divulgar eventos <strong>locais e gratuitos</strong> que acontecem em Brasília. 
-            Aqui você encontra eventos com data e hora confirmadas, filtrados por localização e categoria.
-        </p>
-        <div class="about-features">
-            <div class="feature">
-                <div class="feature-icon">✅</div>
-                <h3>100% Gratuito</h3>
-                <p>Sem custos ocultos, todos os eventos são gratuitos</p>
-            </div>
-            <div class="feature">
-                <div class="feature-icon">📍</div>
-                <h3>Brasília DF</h3>
-                <p>Eventos localizados em Brasília e região</p>
-            </div>
-            <div class="feature">
-                <div class="feature-icon">🔄</div>
-                <h3>Atualizado</h3>
-                <p>Constantemente com novas atividades</p>
-            </div>
-            <div class="feature">
-                <div class="feature-icon">🎯</div>
-                <h3>Fácil Busca</h3>
-                <p>Filtre por categoria, data e localização</p>
-            </div>
-            <div class="feature">
-                <div class="feature-icon">👥</div>
-                <h3>Comunidade</h3>
-                <p>Conecte-se com pessoas e criadores de eventos</p>
-            </div>
-            <div class="feature">
-                <div class="feature-icon">🎉</div>
-                <h3>Diverso</h3>
-                <p>Artes, educação, tech, esporte, música e muito mais</p>
-            </div>
-        </div>
-    </section>
+<script>
 
-    <!-- FOOTER -->
-    <footer>
-        <p><strong>🎉 Eventos em Brasília</strong> - Sua plataforma de eventos gratuitos</p>
-        <p>© 2026 Todos os direitos reservados | Brasília - DF</p>
-        <p>Desenvolvido com ❤️ para a comunidade de Brasília</p>
-    </footer>
+// Banco de perguntas
+const questions = [
+  {
+    pergunta: "Qual a cor do semáforo que indica parada obrigatória?",
+    opcoes: ["Verde", "Amarelo", "Vermelho", "Azul"],
+    correta: "Vermelho"
+  },
+  {
+    pergunta: "O cinto de segurança é obrigatório?",
+    opcoes: ["Não, é opcional", "Sim, é obrigatório", "Apenas para passageiros", "Apenas na estrada"],
+    correta: "Sim, é obrigatório"
+  },
+  {
+    pergunta: "Qual é a velocidade máxima em zona escolar?",
+    opcoes: ["40 km/h", "50 km/h", "30 km/h", "60 km/h"],
+    correta: "30 km/h"
+  },
+  {
+    pergunta: "O que significa uma placa de trânsito octogonal vermelha?",
+    opcoes: ["Cuidado", "Parada permitida", "Parada proibida", "Sentido proibido"],
+    correta: "Parada proibida"
+  },
+  {
+    pergunta: "Qual é a distância mínima de segurança recomendada ao dirigir?",
+    opcoes: ["5 metros", "10 metros", "1 segundo de distância", "20 metros"],
+    correta: "1 segundo de distância"
+  },
+  {
+    pergunta: "É permitido dirigir com apenas uma mão ao volante?",
+    opcoes: ["Sim, sempre", "Não, nunca", "Sim, em retas", "Apenas em emergências"],
+    correta: "Não, nunca"
+  },
+  {
+    pergunta: "Qual é a penalidade para dirigir alcoolizado?",
+    opcoes: ["Apenas multa", "Multa e suspensão da CNH", "Advertência verbal", "Nada, é permitido"],
+    correta: "Multa e suspensão da CNH"
+  },
+  {
+    pergunta: "Em que situação é obrigatório ligar o farol?",
+    opcoes: ["Apenas à noite", "Apenas em chuva", "À noite e em más condições de visibilidade", "Nunca é obrigatório"],
+    correta: "À noite e em más condições de visibilidade"
+  },
+  {
+    pergunta: "Qual é a velocidade máxima permitida em vias urbanas?",
+    opcoes: ["30 km/h", "40 km/h", "50 km/h", "60 km/h"],
+    correta: "60 km/h"
+  },
+  {
+    pergunta: "É permitido estacionar em fila dupla?",
+    opcoes: ["Sim, por pouco tempo", "Não, nunca é permitido", "Sim, à noite", "Apenas em emergências"],
+    correta: "Não, nunca é permitido"
+  }
+];
 
-    <script>
-        // DADOS DE EXEMPLO
-        let events = [
-            {
-                id: 1,
-                title: "Workshop de JavaScript Avançado",
-                category: "Tecnologia",
-                date: "2026-05-15",
-                time: "14:00",
-                location: "Campus da UnB, Brasília",
-                description: "Aprenda técnicas avançadas de JavaScript com experts da indústria. Inscrições abertas!"
-            },
-            {
-                id: 2,
-                title: "Festival de Arte Urbana",
-                category: "Artes e Cultura",
-                date: "2026-05-20",
-                time: "10:00",
-                location: "Esplanada dos Ministérios",
-                description: "Grande festival com arte de rua, música ao vivo e exposições."
-            },
-            {
-                id: 3,
-                title: "Corrida Matinal no Parque da Cidade",
-                category: "Esporte",
-                date: "2026-05-18",
-                time: "06:00",
-                location: "Parque da Cidade, Brasília",
-                description: "Corrida gratuita para todos os níveis. Venha se movimentar!"
-            },
-            {
-                id: 4,
-                title: "Seminário de Empreendedorismo",
-                category: "Educação",
-                date: "2026-05-22",
-                time: "09:00",
-                location: "Câmara de Comércio, Setor Bancário",
-                description: "Aprenda como iniciar seu próprio negócio com empresários locais."
-            },
-            {
-                id: 5,
-                title: "Show de Música Independente",
-                category: "Música",
-                date: "2026-05-25",
-                time: "19:00",
-                location: "Centro de Convenções de Brasília",
-                description: "Noite de música com artistas locais independentes. Entrada gratuita!"
-            },
-            {
-                id: 6,
-                title: "Mesa Redonda de Networking Tech",
-                category: "Networking",
-                date: "2026-05-28",
-                time: "17:00",
-                location: "Hub de Inovação, Asa Sul",
-                description: "Conecte-se com profissionais de tecnologia de Brasília."
-            },
-            {
-                id: 7,
-                title: "Festival Gastronômico",
-                category: "Gastronomia",
-                date: "2026-06-01",
-                time: "11:00",
-                location: "Lago Sul - Área de Lazer",
-                description: "Diversos restaurantes oferecendo pratos especiais a preços acessíveis."
-            },
-            {
-                id: 8,
-                title: "Exposição de Fotografia",
-                category: "Artes e Cultura",
-                date: "2026-06-05",
-                time: "15:00",
-                location: "Museu Nacional, Asa Sul",
-                description: "Exposição de fotógrafos locais com entrada gratuita e coquetel."
+let currentQuestion = 0;
+let score = 0;
+let answered = false;
+
+// Renderizar quiz
+function renderQuiz() {
+  const quizDiv = document.getElementById("quiz");
+  quizDiv.innerHTML = '';
+
+  const question = questions[currentQuestion];
+  
+  const card = document.createElement("div");
+  card.className = "question-card";
+
+  // Número da questão
+  const questionNumber = document.createElement("div");
+  questionNumber.className = "question-number";
+  questionNumber.innerText = `Questão ${currentQuestion + 1} de ${questions.length}`;
+  card.appendChild(questionNumber);
+
+  // Texto da pergunta
+  const title = document.createElement("div");
+  title.className = "question-text";
+  title.innerText = question.pergunta;
+  card.appendChild(title);
+
+  // Opções
+  const optionsDiv = document.createElement("div");
+  optionsDiv.className = "options";
+
+  question.opcoes.forEach(op => {
+    const btn = document.createElement("button");
+    btn.className = "option";
+    btn.innerText = op;
+
+    btn.onclick = () => {
+      if(!answered) {
+        answered = true;
+        
+        if(op === question.correta){
+          btn.classList.add("correct");
+          score++;
+          document.getElementById("score").innerText = score;
+        } else {
+          btn.classList.add("wrong");
+          
+          // Mostrar a resposta correta
+          Array.from(optionsDiv.getElementsByClassName("option")).forEach(b => {
+            if(b.innerText === question.correta) {
+              b.classList.add("correct");
             }
-        ];
-
-        let currentEventDetail = null;
-        let filteredCategory = '';
-
-        // CARREGAR EVENTOS
-        function loadEvents() {
-            const container = document.getElementById('events');
-            container.innerHTML = '';
-
-            const filtered = events.filter(event => {
-                const matchesSearch = event.title.toLowerCase().includes(
-                    document.getElementById('searchInput').value.toLowerCase()
-                );
-                const matchesCategory = !filteredCategory || event.category === filteredCategory;
-                const matchesDate = !document.getElementById('dateFilter').value || 
-                    event.date === document.getElementById('dateFilter').value;
-
-                return matchesSearch && matchesCategory && matchesDate;
-            });
-
-            if (filtered.length === 0) {
-                container.innerHTML = '<p style="grid-column: 1/-1; text-align: center; padding: 2rem; color: #666;">Nenhum evento encontrado. Tente outros filtros!</p>';
-                return;
-            }
-
-            filtered.forEach(event => {
-                const card = document.createElement('div');
-                card.className = 'event-card';
-                card.innerHTML = `
-                    <div class="event-image">🎉</div>
-                    <div class="event-content">
-                        <span class="event-category">${event.category}</span>
-                        <h3 class="event-title">${event.title}</h3>
-                        <div class="event-date">📅 ${new Date(event.date).toLocaleDateString('pt-BR')} às ${event.time}</div>
-                        <div class="event-location">📍 ${event.location}</div>
-                        <p class="event-description">${event.description}</p>
-                        <div class="event-buttons">
-                            <button class="btn-details" onclick="openEventDetail(${event.id})">Ver Detalhes</button>
-                            <button class="btn-share" onclick="shareEvent(${event.id})">Compartilhar 📢</button>
-                        </div>
-                    </div>
-                `;
-                container.appendChild(card);
-            });
+          });
         }
 
-        // FILTROS
-        document.getElementById('searchInput').addEventListener('input', loadEvents);
-        document.getElementById('categoryFilter').addEventListener('change', (e) => {
-            filteredCategory = e.target.value;
-            loadEvents();
-        });
-        document.getElementById('dateFilter').addEventListener('change', loadEvents);
-
-        // FILTRO POR CATEGORIA
-        function filterByCategory(category) {
-            filteredCategory = category;
-            document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-            document.getElementById('categoryFilter').value = category;
-            loadEvents();
-        }
-
-        // MODAL
-        function openModal(modalId) {
-            document.getElementById(modalId).classList.add('active');
-        }
-
-        function closeModal(modalId) {
-            document.getElementById(modalId).classList.remove('active');
-        }
-
-        // FORMULÁRIO DE EVENTO
-        document.getElementById('eventForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            const newEvent = {
-                id: events.length + 1,
-                title: document.getElementById('eventTitle').value,
-                category: document.getElementById('eventCategory').value,
-                date: document.getElementById('eventDate').value,
-                time: document.getElementById('eventTime').value,
-                location: document.getElementById('eventLocation').value,
-                description: document.getElementById('eventDescription').value
-            };
-            events.push(newEvent);
-            document.getElementById('eventForm').reset();
-            closeModal('addEventModal');
-            showNotification('✅ Evento publicado com sucesso!');
-            loadEvents();
+        // Desabilitar todos os botões
+        Array.from(optionsDiv.getElementsByClassName("option")).forEach(b => {
+          b.disabled = true;
         });
 
-        // VER DETALHES
-        function openEventDetail(eventId) {
-            currentEventDetail = events.find(e => e.id === eventId);
-            document.getElementById('detailTitle').textContent = currentEventDetail.title;
-            document.getElementById('eventDetailContent').innerHTML = `
-                <div>
-                    <h3>Informações Gerais</h3>
-                    <p><strong>Categoria:</strong> ${currentEventDetail.category}</p>
-                    <p><strong>Data:</strong> ${new Date(currentEventDetail.date).toLocaleDateString('pt-BR')}</p>
-                    <p><strong>Horário:</strong> ${currentEventDetail.time}</p>
-                    <p><strong>Local:</strong> ${currentEventDetail.location}</p>
-                    <h3>Descrição</h3>
-                    <p>${currentEventDetail.description}</p>
-                </div>
-            `;
-            openModal('eventDetailModal');
-        }
+        // Próxima questão após 2 segundos
+        setTimeout(() => {
+          currentQuestion++;
+          answered = false;
+          updateProgress();
+          
+          if(currentQuestion < questions.length) {
+            renderQuiz();
+          } else {
+            showResults();
+          }
+        }, 2000);
+      }
+    };
 
-        // COMPARTILHAR
-        function shareEvent(eventId) {
-            const event = currentEventDetail || events.find(e => e.id === eventId);
-            const text = `🎉 Confira este evento incrível em Brasília:\n\n${event.title}\n📅 ${new Date(event.date).toLocaleDateString('pt-BR')} às ${event.time}\n📍 ${event.location}\n\nVem com a gente! #EventosBrasília`;
-            
-            if (navigator.share) {
-                navigator.share({
-                    title: event.title,
-                    text: text
-                }).catch(err => console.log('Erro ao compartilhar:', err));
-            } else {
-                alert(text);
-            }
-            showNotification('📢 Evento compartilhado!');
-        }
+    optionsDiv.appendChild(btn);
+  });
 
-        // NOTIFICAÇÃO
-        function showNotification(message) {
-            const notification = document.createElement('div');
-            notification.className = 'notification';
-            notification.textContent = message;
-            document.body.appendChild(notification);
-            setTimeout(() => notification.remove(), 3000);
-        }
+  card.appendChild(optionsDiv);
+  quizDiv.appendChild(card);
+}
 
-        // SCROLL SUAVE
-        function scrollToSection(sectionId) {
-            const element = document.getElementById(sectionId);
-            if (element) {
-                element.scrollIntoView({ behavior: 'smooth' });
-            }
-        }
+// Atualizar barra de progresso
+function updateProgress() {
+  const progressPercent = Math.round((currentQuestion / questions.length) * 100);
+  document.getElementById("progress").innerText = progressPercent + "%";
+  document.getElementById("progressBar").style.width = progressPercent + "%";
+}
 
-        // FECHAR MODAL CLICANDO FORA
-        document.querySelectorAll('.modal').forEach(modal => {
-            modal.addEventListener('click', (e) => {
-                if (e.target === modal) {
-                    modal.classList.remove('active');
-                }
-            });
-        });
+// Mostrar resultados
+function showResults() {
+  document.getElementById("quiz").classList.add("hidden");
+  document.getElementById("results").classList.remove("hidden");
+  
+  const percentage = Math.round((score / questions.length) * 100);
+  document.getElementById("finalScore").innerText = `${score}/${questions.length}`;
+  
+  let message = '';
+  if(percentage === 100) {
+    message = "🏆 Parabéns! Você acertou todas as questões! Você é um excelente motorista!";
+  } else if(percentage >= 80) {
+    message = "🎯 Excelente desempenho! Você está muito bem preparado para a prova!";
+  } else if(percentage >= 60) {
+    message = "✅ Bom resultado! Revise os tópicos com erro e tente novamente.";
+  } else if(percentage >= 40) {
+    message = "📚 Estude mais alguns tópicos de trânsito. Tente novamente!";
+  } else {
+    message = "⚠️ Você precisa estudar muito mais sobre as regras de trânsito!";
+  }
+  
+  document.getElementById("scoreMessage").innerText = message;
+}
 
-        // INICIALIZAR
-        loadEvents();
-    </script>
+// Resetar quiz
+function resetQuiz() {
+  currentQuestion = 0;
+  score = 0;
+  answered = false;
+  
+  document.getElementById("score").innerText = '0';
+  document.getElementById("progress").innerText = '0%';
+  document.getElementById("progressBar").style.width = '0%';
+  document.getElementById("quiz").classList.remove("hidden");
+  document.getElementById("results").classList.add("hidden");
+  
+  renderQuiz();
+}
+
+// Iniciar quiz quando a página carrega
+window.addEventListener('load', () => {
+  renderQuiz();
+});
+
+</script>
 
 </body>
 </html>
